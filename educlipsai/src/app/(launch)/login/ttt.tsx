@@ -13,7 +13,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import Link from 'next/link'
-import Image from 'next/image'
 import { Github, Mail, Lock, Zap, Sparkles, FileText, HelpCircle, MoonIcon, SunIcon, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
@@ -45,36 +44,36 @@ const AnimatedBackground = () => (
     <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80" className="w-full h-full">
       <defs>
         <style>{`
-        @keyframes rotate {
-          0% {
-            transform: rotate(0deg);
+          @keyframes rotate {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
           }
-          100% {
-            transform: rotate(360deg);
+          .out-top {
+            animation: rotate 20s linear infinite;
+            transform-origin: 13px 25px;
           }
-        }
-        .out-top {
-          animation: rotate 20s linear infinite;
-          transform-origin: 13px 25px;
-        }
-        .in-top {
-          animation: rotate 10s linear infinite;
-          transform-origin: 13px 25px;
-        }
-        .out-bottom {
-          animation: rotate 25s linear infinite;
-          transform-origin: 84px 93px;
-        }
-        .in-bottom {
-          animation: rotate 15s linear infinite;
-          transform-origin: 84px 93px;
-        }
-      `}</style>
+          .in-top {
+            animation: rotate 10s linear infinite;
+            transform-origin: 13px 25px;
+          }
+          .out-bottom {
+            animation: rotate 25s linear infinite;
+            transform-origin: 84px 93px;
+          }
+          .in-bottom {
+            animation: rotate 15s linear infinite;
+            transform-origin: 84px 93px;
+          }
+        `}</style>
       </defs>
-      <path fill="#4F46E5" className="out-top" d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z" />
-      <path fill="#6D28D9" className="in-top" d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z" />
-      <path fill="#8B5CF6" className="out-bottom" d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z" />
-      <path fill="#A78BFA" className="in-bottom" d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z" />
+      <path fill="#4F46E5" className="out-top" d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z"/>
+      <path fill="#6D28D9" className="in-top" d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z"/>
+      <path fill="#8B5CF6" className="out-bottom" d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z"/>
+      <path fill="#A78BFA" className="in-bottom" d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z"/>
     </svg>
   </div>
 )
@@ -142,6 +141,40 @@ const FloatingParticles = () => {
   )
 }
 
+const CosmicParticles = () => {
+  const particles = useMemo(() => {
+    return Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 20 + 10,
+      delay: Math.random() * -20,
+    }))
+  }, [])
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute rounded-full bg-white opacity-70"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+            animation: `cosmicFloat ${particle.duration}s infinite ease-in-out ${particle.delay}s`,
+          }}
+        >
+          <div className="absolute w-full h-full rounded-full bg-white opacity-30 animate-pulse" style={{ animationDuration: `${particle.duration * 0.5}s` }} />
+          <div className="absolute w-[300%] h-[300%] -left-full -top-full bg-gradient-radial from-white to-transparent opacity-10 animate-cosmic-pulse" style={{ animationDuration: `${particle.duration * 0.75}s` }} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function AuthPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -153,7 +186,6 @@ export default function AuthPage() {
   const carouselRef = useRef<HTMLDivElement>(null)
   const rightSideAnimation = useAnimation()
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
-
 
   useEffect(() => {
     const userLocale = navigator.language || navigator.languages[0]
@@ -177,26 +209,6 @@ export default function AuthPage() {
   }, [])
 
   useEffect(() => {
-    const autoScroll = async () => {
-      if (carouselRef.current) {
-        const items = carouselRef.current.querySelectorAll('.carousel-item')
-        let currentIndex = 0
-
-        while (true) {
-          await new Promise(resolve => setTimeout(resolve, 5000))
-          currentIndex = (currentIndex + 1) % items.length
-          carouselRef.current.scrollTo({
-            left: currentIndex * carouselRef.current.offsetWidth,
-            behavior: 'smooth'
-          })
-        }
-      }
-    }
-
-    autoScroll()
-  }, [])
-
-  useEffect(() => {
     const randomFadePulse = async () => {
       while (true) {
         await new Promise(resolve => setTimeout(resolve, Math.random() * 10000 + 5000))
@@ -215,10 +227,10 @@ export default function AuthPage() {
       second: '2-digit',
       hour12: true,
     }
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
+    const dateOptions: Intl.DateTimeFormatOptions = { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long', 
       year: 'numeric'
     }
     return {
@@ -293,6 +305,7 @@ export default function AuthPage() {
       <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 p-12 text-white relative overflow-hidden">
         <StarryBackground />
         <FloatingParticles />
+        <CosmicParticles />
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-30"></div>
           <div className="absolute inset-0 neural-network"></div>
@@ -309,15 +322,7 @@ export default function AuthPage() {
           {/* Top content and separator */}
           <div className="mb-8">
             <div className="flex justify-between items-center w-full mb-4">
-
               <div className="flex items-center space-x-4">
-                <Image
-                  src="/placeholder.svg?height=40&width=40"
-                  alt="EduClipsAI Logo"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
                 <h1 className="text-4xl font-bold">EduClipsAI</h1>
                 <div className="flex space-x-2">
                   <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
@@ -330,14 +335,13 @@ export default function AuthPage() {
                   </Button>
                 </div>
               </div>
-
+              
               <div className="text-right">
-                <div className="text-xl font-light font-mono">
-                  <span className="text-sm uppercase tracking-wide block mb-1">TIME</span>
-                  <div className="text-2xl font-light font-mono">
-                    {formatDate.time(currentTime)}
-                  </div>
-                </div></div>
+                <span className="text-sm uppercase tracking-wide block mb-1">TIME</span>
+                <div className="text-2xl font-light font-mono">
+                  {formatDate.time(currentTime)}
+                </div>
+              </div>
             </div>
             <div className="w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-6"></div>
           </div>
@@ -351,7 +355,7 @@ export default function AuthPage() {
                     <Card className="bg-white/10 backdrop-blur-sm border-none text-white">
                       <CardContent className="flex flex-col items-center justify-center p-6">
                         <blockquote className="text-lg font-light mb-4 text-center">
-                        &quot;{testimonial.quote}&quot;
+                          &quot{testimonial.quote}&quot
                         </blockquote>
                         <cite className="text-sm">
                           - {testimonial.author}, {testimonial.role}
@@ -387,7 +391,7 @@ export default function AuthPage() {
       </div>
 
       {/* Right side with tabs for login and register */}
-      <motion.div
+      <motion.div 
         className="flex flex-col justify-center w-full lg:w-1/2 p-8 lg:p-24 bg-white dark:bg-gray-900 relative overflow-hidden"
         animate={rightSideAnimation}
       >
@@ -435,7 +439,7 @@ export default function AuthPage() {
                       />
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
+                  <Button type="submit" className="w-full gradient-button">
                     <Zap className="mr-2 h-5 w-5" />
                     Unlock Your Learning
                   </Button>
@@ -551,19 +555,17 @@ export default function AuthPage() {
           </CardFooter>
         </Card>
         <div className="mt-8 text-sm text-center text-muted-foreground relative z-10">
-          <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-lg p-4">
-            <p>
-              By continuing, you agree to our{' '}
-              <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
-                Privacy Policy
-              </Link>
-              .
-            </p>
-          </div>
+          <p>
+            By continuing, you agree to our{' '}
+            <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+              Privacy Policy
+            </Link>
+            .
+          </p>
         </div>
         <Button
           variant="outline"
@@ -577,292 +579,298 @@ export default function AuthPage() {
       </motion.div>
 
       <style jsx global>{`
-      @keyframes gradient {
-        0% {
-          background-position: 0% 50%;
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
         }
-        50% {
-          background-position: 100% 50%;
+
+        .gradient-button {
+          background: linear-gradient(to right, #7c3aed, #4f46e5, #3b82f6);
+          background-size: 200% auto;
+          color: white;
+          transition: all 0.3s ease;
+          animation: gradient 5s ease infinite;
         }
-        100% {
-          background-position: 0% 50%;
+
+        .gradient-button:hover {
+          background-size: 200% auto;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
-      }
 
-      .gradient-button {
-        background: linear-gradient(to right, #7c3aed, #4f46e5, #3b82f6);
-        background-size: 200% auto;
-        color: white;
-        transition: all 0.3s ease;
-        animation: gradient 5s ease infinite;
-      }
-
-      .gradient-button:hover {
-        background-size: 200% auto;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-      }
-
-      @keyframes twinkle {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes move {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(10px, 10px); }
-      }
-
-      @keyframes float {
-        0%, 100% { transform: translateY(0) translateX(0); }
-        25% { transform: translateY(-15px) translateX(15px); }
-        50% { transform: translateY(-30px) translateX(0); }
-        75% { transform: translateY(-15px) translateX(-15px); }
-      }
-
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.1); opacity: 0.7; }
-      }
-
-      @keyframes trail {
-        0% { transform: scaleX(0); opacity: 0.7; }
-        50% { transform: scaleX(1); opacity: 0.3; }
-        100% { transform: scaleX(0); opacity: 0; }
-      }
-
-      @keyframes subtlePulse {
-        0%, 100% { transform: scale(1); opacity: 0.4; }
-        50% { transform: scale(1.05); opacity: 0.6; }
-      }
-
-      @keyframes gentleFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-
-      @keyframes softNetwork {
-        0%, 100% { background-position: 0% 0%; }
-        50% { background-position: 100% 100%; }
-      }
-
-      @keyframes calmDrift {
-        0% { transform: translate(0, 0); }
-        25% { transform: translate(3%, 5%); }
-        50% { transform: translate(5%, 3%); }
-        75% { transform: translate(3%, -3%); }
-        100% { transform: translate(0, 0); }
-      }
-
-      @keyframes softGlow {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 0.5; }
-      }
-
-      @keyframes swarm {
-        0%, 100% { transform: translate(0, 0); }
-        25% { transform: translate(15px, 15px); }
-        50% { transform: translate(-15px, 15px); }
-        75% { transform: translate(-15px, -15px); }
-      }
-
-      @keyframes gradientSweep {
-        0%, 100% { transform: translateX(-100%); opacity: 0; }
-        50% { transform: translateX(100%); opacity: 0.2; }
-      }
-
-      @keyframes auroraWaves {
-        0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-        50% { transform: translateY(-20px) scale(1.1); opacity: 0.5; }
-      }
-
-   
-
-      .neural-network {
-        background-image: 
-          radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px),
-          radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-        background-size: 60px 60px;
-        animation: softNetwork 60s infinite linear;
-      }
-
-      .particles::before,
-      .particles::after {
-        content: '';
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.3);
-        animation: gentleFloat 12s infinite ease-in-out, calmDrift 30s infinite ease-in-out;
-      }
-
-      .particles::before {
-        top: 20%;
-        left: 20%;
-        animation-delay: -2s;
-      }
-
-      .particles::after {
-        bottom: 20%;
-        right: 20%;
-        animation-delay: -4s;
-      }
-
-      .pulse-circles::before,
-      .pulse-circles::after {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        animation: subtlePulse 8s infinite ease-in-out, calmDrift 35s infinite ease-in-out;
-      }
-
-      .pulse-circles::before {
-        width: 300px;
-        height: 300px;
-        top: 10%;
-        left: 10%;
-      }
-
-      .pulse-circles::after {
-        width: 400px;
-        height: 400px;
-        bottom: 10%;
-        right: 10%;
-        animation-delay: -3s;
-      }
-
-      .drifting-dots::before,
-      .drifting-dots::after,
-      .drifting-dots .dot {
-        content: '';
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.2);
-        animation: calmDrift 40s infinite ease-in-out;
-      }
-
-      .drifting-dots::before { top: 40%; left: 40%; animation-delay: -5s; }
-      .drifting-dots::after { bottom: 30%; right: 35%; animation-delay: -15s; }
-      .drifting-dots .dot:nth-child(1) { top: 15%; left: 25%; animation-delay: -7s; }
-      .drifting-dots .dot:nth-child(2) { top: 60%; left: 15%; animation-delay: -12s; }
-      .drifting-dots .dot:nth-child(3) { top: 75%; left: 35%; animation-delay: -18s; }
-      .drifting-dots .dot:nth-child(4) { top: 25%; left: 65%; animation-delay: -23s; }
-      .drifting-dots .dot:nth-child(5) { top: 80%; left: 70%; animation-delay: -9s; }
-
-      .large-circles::before,
-      .large-circles::after,
-      .large-circles .circle {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.03);
-        animation: subtlePulse 10s infinite ease-in-out, calmDrift 30s infinite ease-in-out;
-      }
-
-      .large-circles::before { width: 500px; height: 500px; top: 5%; left: 0%; }
-      .large-circles::after { width: 450px; height: 450px; bottom: 10%; right: 5%; animation-delay: -4s; }
-      .large-circles .circle:nth-child(1) { width: 400px; height: 400px; top: 30%; left: 20%; animation-delay: -8s; }
-      .large-circles .circle:nth-child(2) { width: 550px; height: 550px; top: 60%; left: 50%; animation-delay: -12s; }
-      .large-circles .circle:nth-child(3) { width: 350px; height: 350px; top: 15%; left: 60%; animation-delay: -16s; }
-
-      .glowing-orbs::before,
-      .glowing-orbs::after,
-      .glowing-orbs .orb {
-        content: '';
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
-        animation: softGlow 8s infinite ease-in-out, calmDrift 35s infinite ease-in-out;
-      }
-
-      .glowing-orbs::before { top: 25%; left: 15%; }
-      .glowing-orbs::after { bottom: 20%; right: 10%; animation-delay: -3s; }
-      .glowing-orbs .orb:nth-child(1) { top: 50%; left: 50%; animation-delay: -1.5s; }
-      .glowing-orbs .orb:nth-child(2) { top: 75%; left: 30%; animation-delay: -4.5s; }
-      .glowing-orbs .orb:nth-child(3) { top: 10%; left: 60%; animation-delay: -6s; }
-
-      .swarming-dots::before,
-      .swarming-dots::after,
-      .swarming-dots .dot {
-        content: '';
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.9);
-        animation: swarm 15s infinite ease-in-out;
-      }
-
-      .swarming-dots::before {
-        top: 30%;
-        left: 40%;
-        animation-delay: -2s;
-      }
-
-      .swarming-dots::after {
-        top: 70%;
-        left: 60%;
-        animation-delay: -4s;
-      }
-
-      .swarming-dots .dot:nth-child(1) { top: 20%; left: 20%; animation-delay: -1s; }
-      .swarming-dots .dot:nth-child(2) { top: 40%; left: 80%; animation-delay: -3s; }
-      .swarming-dots .dot:nth-child(3) { top: 60%; left: 30%; animation-delay: -5s; }
-      .swarming-dots .dot:nth-child(4) { top: 80%; left: 70%; animation-delay: -7s; }
-      .swarming-dots .dot:nth-child(5) { top: 10%; left: 50%; animation-delay: -9s; }
-      .swarming-dots .dot:nth-child(6) { top: 50%; left: 10%; animation-delay: -11s; }
-      .swarming-dots .dot:nth-child(7) { top: 90%; left: 40%; animation-delay: -13s; }
-      .swarming-dots .dot:nth-child(8) { top: 30%; left: 90%; animation-delay: -15s; }
-      .swarming-dots .dot:nth-child(9) { top: 70%; left: 20%; animation-delay: -17s; }
-      .swarming-dots .dot:nth-child(10) { top: 40%; left: 60%; animation-delay: -19s; }
-      .swarming-dots .dot:nth-child(11) { top: 85%; left: 85%; animation-delay: -21s; }
-      .swarming-dots .dot:nth-child(12) { top: 15%; left: 75%; animation-delay: -23s; }
-
-      .gradient-sweep {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-        animation: gradientSweep 15s infinite ease-in-out;
-      }
-
-      .aurora-waves {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, 
-          rgba(97, 218, 251, 0.1), 
-          rgba(128, 0, 128, 0.1), 
-          rgba(255, 0, 255, 0.1),
-          rgba(255, 165, 0, 0.1),
-          rgba(255, 69, 0, 0.1)
-        );
-        filter: blur(30px);
-        animation: auroraWaves 20s infinite ease-in-out;
-      }
-
-
-
-
-      @media (prefers-reduced-motion) {
-        .animated-background, .gradient-button, .neural-network, .particles, .pulse-circles,
-        .drifting-dots, .large-circles, .glowing-orbs, .swarming-dots, .gradient-sweep,
-        .aurora-waves, .floating-particles {
-          animation: none;
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 1; }
         }
-      }
-    `}</style>
+
+        @keyframes move {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(10px, 10px); }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-15px) translateX(15px); }
+          50% { transform: translateY(-30px) translateX(0); }
+          75% { transform: translateY(-15px) translateX(-15px); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        @keyframes trail {
+          0% { transform: scaleX(0); opacity: 0.7; }
+          50% { transform: scaleX(1); opacity: 0.3; }
+          100% { transform: scaleX(0); opacity: 0; }
+        }
+
+        @keyframes subtlePulse {
+          0%, 100% { transform: scale(1); opacity: 0.4; }
+          50% { transform: scale(1.05); opacity: 0.6; }
+        }
+
+        @keyframes gentleFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes softNetwork {
+          0%, 100% { background-position: 0% 0%; }
+          50% { background-position: 100% 100%; }
+        }
+
+        @keyframes calmDrift {
+          0% { transform: translate(0, 0); }
+          25% { transform: translate(3%, 5%); }
+          50% { transform: translate(5%, 3%); }
+          75% { transform: translate(3%, -3%); }
+          100% { transform: translate(0, 0); }
+        }
+
+        @keyframes softGlow {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.5; }
+        }
+
+        @keyframes swarm {
+          0%, 100% { transform: translate(0, 0); }
+          25% { transform: translate(15px, 15px); }
+          50% { transform: translate(-15px, 15px); }
+          75% { transform: translate(-15px, -15px); }
+        }
+
+        @keyframes gradientSweep {
+          0%, 100% { transform: translateX(-100%); opacity: 0; }
+          50% { transform: translateX(100%); opacity: 0.2; }
+        }
+
+        @keyframes auroraWaves {
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+          50% { transform: translateY(-20px) scale(1.1); opacity: 0.5; }
+        }
+
+        @keyframes cosmicFloat {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(20px, -20px) scale(1.1); }
+          50% { transform: translate(40px, 0) scale(1); }
+          75% { transform: translate(20px, 20px) scale(0.9); }
+        }
+
+        @keyframes cosmic-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.1; }
+          50% { transform: scale(1.5); opacity: 0.3; }
+        }
+
+        .neural-network {
+          background-image: 
+            radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px),
+            radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+          background-size: 60px 60px;
+          animation: softNetwork 60s infinite linear;
+        }
+
+        .particles::before,
+        .particles::after {
+          content: '';
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.3);
+          animation: gentleFloat 12s infinite ease-in-out, calmDrift 30s infinite ease-in-out;
+        }
+
+        .particles::before {
+          top: 20%;
+          left: 20%;
+          animation-delay: -2s;
+        }
+
+        .particles::after {
+          bottom: 20%;
+          right: 20%;
+          animation-delay: -4s;
+        }
+
+        .pulse-circles::before,
+        .pulse-circles::after {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.05);
+          animation: subtlePulse 8s infinite ease-in-out, calmDrift 35s infinite ease-in-out;
+        }
+
+        .pulse-circles::before {
+          width: 300px;
+          height: 300px;
+          top: 10%;
+          left: 10%;
+        }
+
+        .pulse-circles::after {
+          width: 400px;
+          height: 400px;
+          bottom: 10%;
+          right: 10%;
+          animation-delay: -3s;
+        }
+
+        .drifting-dots::before,
+        .drifting-dots::after,
+        .drifting-dots .dot {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.2);
+          animation: calmDrift 40s infinite ease-in-out;
+        }
+
+        .drifting-dots::before { top: 40%; left: 40%; animation-delay: -5s; }
+        .drifting-dots::after { bottom: 30%; right: 35%; animation-delay: -15s; }
+        .drifting-dots .dot:nth-child(1) { top: 15%; left: 25%; animation-delay: -7s; }
+        .drifting-dots .dot:nth-child(2) { top: 60%; left: 15%; animation-delay: -12s; }
+        .drifting-dots .dot:nth-child(3) { top: 75%; left: 35%; animation-delay: -18s; }
+        .drifting-dots .dot:nth-child(4) { top: 25%; left: 65%; animation-delay: -23s; }
+        .drifting-dots .dot:nth-child(5) { top: 80%; left: 70%; animation-delay: -9s; }
+
+        .large-circles::before,
+        .large-circles::after,
+        .large-circles .circle {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.03);
+          animation: subtlePulse 10s infinite ease-in-out, calmDrift 30s infinite ease-in-out;
+        }
+
+        .large-circles::before { width: 500px; height: 500px; top: 5%; left: 0%; }
+        .large-circles::after { width: 450px; height: 450px; bottom: 10%; right: 5%; animation-delay: -4s; }
+        .large-circles .circle:nth-child(1) { width: 400px; height: 400px; top: 30%; left: 20%; animation-delay: -8s; }
+        .large-circles .circle:nth-child(2) { width: 550px; height: 550px; top: 60%; left: 50%; animation-delay: -12s; }
+        .large-circles .circle:nth-child(3) { width: 350px; height: 350px; top: 15%; left: 60%; animation-delay: -16s; }
+
+        .glowing-orbs::before,
+        .glowing-orbs::after,
+        .glowing-orbs .orb {
+          content: '';
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+          animation: softGlow 8s infinite ease-in-out, calmDrift 35s infinite ease-in-out;
+        }
+
+        .glowing-orbs::before { top: 25%; left: 15%; }
+        .glowing-orbs::after { bottom: 20%; right: 10%; animation-delay: -3s; }
+        .glowing-orbs .orb:nth-child(1) { top: 50%; left: 50%; animation-delay: -1.5s; }
+        .glowing-orbs .orb:nth-child(2) { top: 75%; left: 30%; animation-delay: -4.5s; }
+        .glowing-orbs .orb:nth-child(3) { top: 10%; left: 60%; animation-delay: -6s; }
+
+        .swarming-dots::before,
+        .swarming-dots::after,
+        .swarming-dots .dot {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.9);
+          animation: swarm 15s infinite ease-in-out;
+        }
+
+        .swarming-dots::before {
+          top: 30%;
+          left: 40%;
+          animation-delay: -2s;
+        }
+
+        .swarming-dots::after {
+          top: 70%;
+          left: 60%;
+          animation-delay: -4s;
+        }
+
+        .swarming-dots .dot:nth-child(1) { top: 20%; left: 20%; animation-delay: -1s; }
+        .swarming-dots .dot:nth-child(2) { top: 40%; left: 80%; animation-delay: -3s; }
+        .swarming-dots .dot:nth-child(3) { top: 60%; left: 30%; animation-delay: -5s; }
+        .swarming-dots .dot:nth-child(4) { top: 80%; left: 70%; animation-delay: -7s; }
+        .swarming-dots .dot:nth-child(5) { top: 10%; left: 50%; animation-delay: -9s; }
+        .swarming-dots .dot:nth-child(6) { top: 50%; left: 10%; animation-delay: -11s; }
+        .swarming-dots .dot:nth-child(7) { top: 90%; left: 40%; animation-delay: -13s; }
+        .swarming-dots .dot:nth-child(8) { top: 30%; left: 90%; animation-delay: -15s; }
+        .swarming-dots .dot:nth-child(9) { top: 70%; left: 20%; animation-delay: -17s; }
+        .swarming-dots .dot:nth-child(10) { top: 40%; left: 60%; animation-delay: -19s; }
+        .swarming-dots .dot:nth-child(11) { top: 85%; left: 85%; animation-delay: -21s; }
+        .swarming-dots .dot:nth-child(12) { top: 15%; left: 75%; animation-delay: -23s; }
+
+        .gradient-sweep {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 200%;
+          height: 100%;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+          animation: gradientSweep 15s infinite ease-in-out;
+        }
+
+        .aurora-waves {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, 
+            rgba(97, 218, 251, 0.1), 
+            rgba(128, 0, 128, 0.1), 
+            rgba(255, 0, 255, 0.1),
+            rgba(255, 165, 0, 0.1),
+            rgba(255, 69, 0, 0.1)
+          );
+          filter: blur(30px);
+          animation: auroraWaves 20s infinite ease-in-out;
+        }
+
+        @media (prefers-reduced-motion) {
+          .animated-background, .gradient-button, .neural-network, .particles, .pulse-circles,
+          .drifting-dots, .large-circles, .glowing-orbs, .swarming-dots, .gradient-sweep,
+          .aurora-waves, .floating-particles, .cosmic-particles {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
-
   )
 }
