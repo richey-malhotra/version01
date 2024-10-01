@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/carousel"
 import Link from 'next/link'
 import Image from 'next/image'
-import { Github, Mail, Lock, Zap, Sparkles, FileText, HelpCircle, MoonIcon, SunIcon, User } from 'lucide-react'
+import { Github, Mail, Lock, FileText, HelpCircle, MoonIcon, SunIcon, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 const testimonials = [
@@ -196,18 +196,6 @@ export default function AuthPage() {
     autoScroll()
   }, [])
 
-  useEffect(() => {
-    const randomFadePulse = async () => {
-      while (true) {
-        await new Promise(resolve => setTimeout(resolve, Math.random() * 10000 + 5000))
-        await rightSideAnimation.start({ opacity: 0.7, transition: { duration: 0.5 } })
-        await rightSideAnimation.start({ opacity: 1, transition: { duration: 0.5 } })
-      }
-    }
-
-    randomFadePulse()
-  }, [rightSideAnimation])
-
   const formatDate = useMemo(() => {
     const timeOptions: Intl.DateTimeFormatOptions = {
       hour: '2-digit',
@@ -310,27 +298,27 @@ export default function AuthPage() {
           <div className="mb-8">
             <div className="flex justify-between items-center w-full mb-4">
 
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
                 <Image
-                  src="/placeholder.svg?height=40&width=40"
+                  src="/logo.webp"
                   alt="EduClipsAI Logo"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
+                  width={80}
+                  height={80}
+
                 />
                 <h1 className="text-4xl font-bold">EduClipsAI</h1>
-                <div className="flex space-x-2">
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
-                    <FileText className="mr-2 h-4 w-4" />
-                    Docs
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
-                    <HelpCircle className="mr-2 h-4 w-4" />
-                    Support
-                  </Button>
                 </div>
-              </div>
-
+                  <div className="flex space-x-2">
+                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
+                      <FileText className="mr-2 h-4 w-4" />
+                      Docs
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
+                      <HelpCircle className="mr-2 h-4 w-4" />
+                      Support
+                    </Button>
+                  </div>
+                
               <div className="text-right">
                 <div className="text-xl font-light font-mono">
                   <span className="text-sm uppercase tracking-wide block mb-1">TIME</span>
@@ -436,8 +424,7 @@ export default function AuthPage() {
                     </div>
                   </div>
                   <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
-                    <Zap className="mr-2 h-5 w-5" />
-                    Unlock Your Learning
+                    Login
                   </Button>
                 </form>
               </TabsContent>
@@ -503,9 +490,8 @@ export default function AuthPage() {
                       />
                     </div>
                   </div>
-                  <Button type="submit" className="w-full gradient-button">
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    Start Your AI Learning Journey
+                  <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
+                    Register
                   </Button>
                 </form>
               </TabsContent>
@@ -847,7 +833,7 @@ export default function AuthPage() {
           rgba(255, 165, 0, 0.1),
           rgba(255, 69, 0, 0.1)
         );
-        filter: blur(30px);
+        filter: blur(800px);
         animation: auroraWaves 20s infinite ease-in-out;
       }
 
