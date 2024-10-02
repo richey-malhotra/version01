@@ -298,16 +298,19 @@ export default function AuthPage() {
           <div className="mb-8">
             <div className="flex justify-between items-center w-full mb-4">
 
-              <div className="flex items-center space-x-2">
+
+
+            <Link href="/landing" className="flex items-center space-x-2">
+   
                 <Image
-                  src="/logo.webp"
+                  src="/logo.webp?height=80&width=80"
                   alt="EduClipsAI Logo"
                   width={80}
                   height={80}
-
+                  onClick={() => window.location.href = '/landing'}
                 />
                 <h1 className="text-4xl font-bold">EduClipsAI</h1>
-                </div>
+                </Link>
                   <div className="flex space-x-2">
                     <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
                       <FileText className="mr-2 h-4 w-4" />
@@ -537,7 +540,7 @@ export default function AuthPage() {
           </CardFooter>
         </Card>
         <div className="mt-8 text-sm text-center text-muted-foreground relative z-10">
-          <div className="bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-lg p-4">
+          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-lg p-4">
             <p>
               By continuing, you agree to our{' '}
               <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
