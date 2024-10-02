@@ -278,7 +278,7 @@ export default function AuthPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left side with enhanced animation */}
-      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 p-12 text-white relative overflow-hidden">
+      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 p-12 text-white relative overflow-hidden border-r border-white/10">
         <StarryBackground />
         <FloatingParticles />
         <div className="absolute inset-0 z-0">
@@ -303,10 +303,10 @@ export default function AuthPage() {
             <Link href="/landing" className="flex items-center space-x-2">
    
                 <Image
-                  src="/logo.webp?height=80&width=80"
+                  src="/logo.webp?height=60&width=60"
                   alt="EduClipsAI Logo"
-                  width={80}
-                  height={80}
+                  width={60}
+                  height={60}
                   onClick={() => window.location.href = '/landing'}
                 />
                 <h1 className="text-4xl font-bold">EduClipsAI</h1>
@@ -361,7 +361,7 @@ export default function AuthPage() {
             <div className="flex justify-between items-end w-full mt-4">
               <div className="text-xl font-light font-mono">
                 <span className="text-sm uppercase tracking-wide block mb-1">Version</span>
-                <span className="text-2xl">v1.0.3</span>
+                <span className="text-xl">v1.0.3</span>
               </div>
               <div className="flex items-end space-x-8">
                 <div className="w-24">
@@ -379,7 +379,7 @@ export default function AuthPage() {
 
       {/* Right side with tabs for login and register */}
       <motion.div
-        className="flex flex-col justify-center w-full lg:w-1/2 p-8 lg:p-24 bg-white dark:bg-gray-900 relative overflow-hidden"
+        className="flex flex-col justify-center w-full lg:w-1/2 p-8 lg:p-24 bg-white dark:bg-gray-900 relative overflow-hidden border-l border-gray-200 dark:border-gray-800"
         animate={rightSideAnimation}
       >
         <AnimatedBackground />
