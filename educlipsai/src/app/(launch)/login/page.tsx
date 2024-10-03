@@ -14,8 +14,7 @@ import {
 } from "@/components/ui/carousel"
 import Link from 'next/link'
 import Image from 'next/image'
-import { Github, Mail, Lock, FileText, HelpCircle, MoonIcon, SunIcon, User } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { Github, Mail, Lock, FileText, HelpCircle, User } from 'lucide-react'
 
 const testimonials = [
   {
@@ -149,11 +148,10 @@ export default function AuthPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [isUKLocale, setIsUKLocale] = useState(false)
-  const { theme, setTheme } = useTheme()
+
   const carouselRef = useRef<HTMLDivElement>(null)
   const rightSideAnimation = useAnimation()
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
-
 
   useEffect(() => {
     const userLocale = navigator.language || navigator.languages[0]
@@ -271,105 +269,98 @@ export default function AuthPage() {
     )
   }
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
-  }
-
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-black">
       {/* Left side with enhanced animation */}
-      <div className="hidden lg:flex flex-col w-1/2 bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 p-12 text-white relative overflow-hidden border-r border-white/10">
-        <StarryBackground />
-        <FloatingParticles />
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-30"></div>
-          <div className="absolute inset-0 neural-network"></div>
-          <div className="absolute inset-0 particles"></div>
-          <div className="absolute inset-0 pulse-circles"></div>
-          <div className="absolute inset-0 drifting-dots"></div>
-          <div className="absolute inset-0 large-circles"></div>
-          <div className="absolute inset-0 glowing-orbs"></div>
-          <div className="absolute inset-0 swarming-dots"></div>
-          <div className="absolute inset-0 gradient-sweep"></div>
-          <div className="absolute inset-0 aurora-waves"></div>
-        </div>
-        <div className="z-10 flex flex-col h-full">
-          {/* Top content and separator */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center w-full mb-4">
-
-
-
-            <Link href="/landing" className="flex items-center space-x-2">
-   
-                <Image
-                  src="/logo.webp?height=60&width=60"
-                  alt="EduClipsAI Logo"
-                  width={60}
-                  height={60}
-                  onClick={() => window.location.href = '/landing'}
-                />
-                <h1 className="text-4xl font-bold">EduClipsAI</h1>
+      <div className="w-1/2 flex justify-center items-center">
+        <div className="w-[85%] h-[85%] flex flex-col bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 p-12 text-white relative overflow-hidden border-4 border-secondary">
+          <StarryBackground />
+          <FloatingParticles />
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-30"></div>
+            <div className="absolute inset-0 neural-network"></div>
+            <div className="absolute inset-0 particles"></div>
+            <div className="absolute inset-0 pulse-circles"></div>
+            <div className="absolute inset-0 drifting-dots"></div>
+            <div className="absolute inset-0 large-circles"></div>
+            <div className="absolute inset-0 glowing-orbs"></div>
+            <div className="absolute inset-0 swarming-dots"></div>
+            <div className="absolute inset-0 gradient-sweep"></div>
+            <div className="absolute inset-0 aurora-waves"></div>
+          </div>
+          <div className="z-10 flex flex-col h-full">
+            {/* Top content and separator */}
+            <div className="mb-8">
+              <div className="flex justify-between items-center w-full mb-4">
+                <Link href="/landing" className="flex items-center space-x-2">
+                  <Image
+                    src="/logo.webp?height=60&width=60"
+                    alt="EduClipsAI Logo"
+                    width={60}
+                    height={60}
+                  />
+                  <h1 className="text-4xl font-bold">EduClipsAI</h1>
                 </Link>
-                  <div className="flex space-x-2">
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
-                      <FileText className="mr-2 h-4 w-4" />
-                      Docs
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
-                      <HelpCircle className="mr-2 h-4 w-4" />
-                      Support
-                    </Button>
-                  </div>
-                
-              <div className="text-right">
-                <div className="text-xl font-light font-mono">
+                <div className="text-xl font-light font-mono text-right">
                   <span className="text-sm uppercase tracking-wide block mb-1">TIME</span>
                   <div className="text-2xl font-light font-mono">
                     {formatDate.time(currentTime)}
                   </div>
-                </div></div>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-6"></div>
-          </div>
-
-          {/* Middle content (Carousel) */}
-          <div className="flex-grow flex items-center justify-center">
-            <Carousel className="w-full max-w-md" ref={carouselRef}>
-              <CarouselContent>
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className={index === currentTestimonialIndex ? 'block' : 'hidden'}>
-                    <Card className="bg-white/10 backdrop-blur-sm border-none text-white">
-                      <CardContent className="flex flex-col items-center justify-center p-6">
-                        <blockquote className="text-lg font-light mb-4 text-center">
-                        &quot;{testimonial.quote}&quot;
-                        </blockquote>
-                        <cite className="text-sm">
-                          - {testimonial.author}, {testimonial.role}
-                        </cite>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
-
-          {/* Bottom content and separator */}
-          <div>
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-6"></div>
-            <div className="flex justify-between items-end w-full mt-4">
-              <div className="text-xl font-light font-mono">
-                <span className="text-sm uppercase tracking-wide block mb-1">Version</span>
-                <span className="text-xl">v1.0.3</span>
-              </div>
-              <div className="flex items-end space-x-8">
-                <div className="w-24">
-                  {renderCalendar()}
                 </div>
-                <div className="text-xl font-light font-mono text-right">
-                  <span className="text-sm uppercase tracking-wide block mb-1">DATE</span>
-                  {formatDate.date(currentTime, isUKLocale)}
+              </div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-6"></div>
+              <div className="flex space-x-2">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Docs
+                </Button>
+                <Button variant="ghost" size="sm" className="text-white hover: bg-white/20 transition-colors duration-300 bg-white/10 backdrop-blur-sm">
+                  <HelpCircle className="mr-2 h-4 w-4" />
+                  Support
+                </Button>
+              </div>
+            </div>
+
+            {/* Middle content (Carousel) */}
+            <div className="flex-grow flex items-center justify-center">
+              <Carousel className="w-full max-w-md" ref={carouselRef}>
+                <CarouselContent>
+                  {testimonials.map((testimonial, index) => (
+                    <CarouselItem key={index} className={index === currentTestimonialIndex ? 'block' : 'hidden'}>
+                      <Card className="bg-white/10 backdrop-blur-sm border-none text-white">
+                        <CardContent className="flex flex-col items-center justify-center p-6">
+                          <blockquote className="text-lg font-light mb-4 text-center">
+                          &quot;{testimonial.quote}&quot;
+                          </blockquote>
+                          <cite className="text-sm">
+                            - {testimonial.author}, {testimonial.role}
+                          </cite>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+
+            {/* Bottom content and separator */}
+            <div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent my-6"></div>
+              <div className="flex justify-between items-end w-full mt-4">
+                <div className="text-xl font-light font-mono">
+                  <span className="text-sm uppercase tracking-wide block mb-1">Version</span>
+                  <span className="text-xl">v1.0.3</span>
+                </div>
+                <div className="flex items-end space-x-8">
+                  <div className="w-24">
+                    {renderCalendar()}
+                  </div>
+                  <div className="text-xl font-light font-mono text-right">
+                    <span className="text-sm uppercase tracking-wide block mb-1">DATE</span>
+                    <div className="text-2xl font-light font-mono">
+                      {formatDate.date(currentTime, isUKLocale)}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -378,192 +369,185 @@ export default function AuthPage() {
       </div>
 
       {/* Right side with tabs for login and register */}
-      <motion.div
-        className="flex flex-col justify-center w-full lg:w-1/2 p-8 lg:p-24 bg-white dark:bg-gray-900 relative overflow-hidden border-l border-gray-200 dark:border-gray-800"
-        animate={rightSideAnimation}
-      >
-        <AnimatedBackground />
-        <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 relative z-10">
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold text-center text-gray-900 dark:text-white">Welcome to EduClipsAI</CardTitle>
-            <CardDescription className="text-center text-gray-600 dark:text-gray-400">Sign in to your account or create a new one</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="login" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="register">Register</TabsTrigger>
-              </TabsList>
-              <TabsContent value="login">
-                <form onSubmit={(e) => handleSubmit(e, 'login')} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="login-email"
-                        type="email"
-                        placeholder="name@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="login-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
-                    Login
-                  </Button>
-                </form>
-              </TabsContent>
-              <TabsContent value="register">
-                <form onSubmit={(e) => handleSubmit(e, 'register')} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="register-name">Full Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="register-name"
-                        type="text"
-                        placeholder="John Doe"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="register-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="register-email"
-                        type="email"
-                        placeholder="name@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="register-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="register-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="register-confirm-password">Confirm Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        id="register-confirm-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
-                    Register
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="relative w-full">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-muted" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background dark:bg-gray-800 px-2 text-muted-foreground">Or continue with</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 w-full">
-              <Button variant="outline" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
-              </Button>
-              <Button variant="outline" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <svg viewBox="0 0 24 24" className="mr-2 h-4 w-4" aria-hidden="true">
-                  <path
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    fill="#4285F4"
-                  />
-                  <path
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    fill="#34A853"
-                  />
-                  <path
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                    fill="#FBBC05"
-                  />
-                  <path
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                    fill="#EA4335"
-                  />
-                  <path d="M1 1h22v22H1z" fill="none" />
-                </svg>
-                Google
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-        <div className="mt-8 text-sm text-center text-muted-foreground relative z-10">
-          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-lg p-4">
-            <p>
-              By continuing, you agree to our{' '}
-              <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
-                Privacy Policy
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={toggleTheme}
-          className="absolute top-4 right-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 z-20"
-          aria-label="Toggle dark mode"
+      <div className="w-1/2 flex justify-center items-center">
+        <motion.div
+          className="w-[85%] h-[85%] flex flex-col justify-center p-8 lg:p-24 bg-white dark:bg-gray-900 relative overflow-hidden border-4 border-secondary"
+          animate={rightSideAnimation}
         >
-          {theme === 'dark' ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
-        </Button>
-      </motion.div>
+          <AnimatedBackground />
+          <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 relative z-10">
+            <CardHeader>
+              <CardTitle className="text-3xl font-bold text-center text-gray-900 dark:text-white">Welcome to EduClipsAI</CardTitle>
+              <CardDescription className="text-center text-gray-600 dark:text-gray-400">Sign in to your account or create a new one</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue="login" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-8">
+                  <TabsTrigger value="login">Login</TabsTrigger>
+                  <TabsTrigger value="register">Register</TabsTrigger>
+                </TabsList>
+                <TabsContent value="login">
+                  <form onSubmit={(e) => handleSubmit(e, 'login')} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="login-email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="login-email"
+                          type="email"
+                          placeholder="name@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="login-password">Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="login-password"
+                          type="password"
+                          placeholder="••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
+                      Login
+                    </Button>
+                  </form>
+                </TabsContent>
+                <TabsContent value="register">
+                  <form onSubmit={(e) => handleSubmit(e, 'register')} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="register-name">Full Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="register-name"
+                          type="text"
+                          placeholder="John Doe"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="register-email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="register-email"
+                          type="email"
+                          placeholder="name@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="register-password">Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="register-password"
+                          type="password"
+                          placeholder="••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="register-confirm-password">Confirm Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="register-confirm-password"
+                          type="password"
+                          placeholder="••••••••"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
+                    <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
+                      Register
+                    </Button>
+                  </form>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+            <CardFooter className="flex flex-col space-y-4">
+              <div className="relative w-full">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-muted" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background dark:bg-gray-800 px-2 text-muted-foreground">Or continue with</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 w-full">
+                <Button variant="outline" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <Github className="mr-2 h-4 w-4" />
+                  GitHub
+                </Button>
+                <Button variant="outline" className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <svg viewBox="0 0 24 24" className="mr-2 h-4 w-4" aria-hidden="true">
+                    <path
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                      fill="#4285F4"
+                    />
+                    <path
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                      fill="#FBBC05"
+                    />
+                    <path
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                      fill="#EA4335"
+                    />
+                    <path d="M1 1h22v22H1z" fill="none" />
+                  </svg>
+                  Google
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
+          <div className="mt-8 text-sm text-center text-muted-foreground relative z-10">
+            <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-lg p-4">
+              <p>
+                By continuing, you agree to our{' '}
+                <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+                  Privacy Policy
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
       <style jsx global>{`
       @keyframes gradient {
@@ -631,7 +615,7 @@ export default function AuthPage() {
       }
 
       @keyframes softNetwork {
-        0%, 100% { background-position: 0% 0%; }
+        0%, 100%  { background-position: 0% 0%; }
         50% { background-position: 100% 100%; }
       }
 
@@ -661,11 +645,10 @@ export default function AuthPage() {
       }
 
       @keyframes auroraWaves {
-        0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+        0%, 100% { transform: translateY(0) scale(1);
+        opacity: 0.3; }
         50% { transform: translateY(-20px) scale(1.1); opacity: 0.5; }
       }
-
-   
 
       .neural-network {
         background-image: 
@@ -840,9 +823,6 @@ export default function AuthPage() {
         animation: auroraWaves 20s infinite ease-in-out;
       }
 
-
-
-
       @media (prefers-reduced-motion) {
         .animated-background, .gradient-button, .neural-network, .particles, .pulse-circles,
         .drifting-dots, .large-circles, .glowing-orbs, .swarming-dots, .gradient-sweep,
@@ -852,6 +832,5 @@ export default function AuthPage() {
       }
     `}</style>
     </div>
-
   )
 }
