@@ -303,7 +303,7 @@ export default function AuthPage() {
                 </Link>
                 <div className="text-xl font-light font-mono text-right">
                   <span className="text-sm uppercase tracking-wide block mb-1">TIME</span>
-                  <div className="text-2xl font-light font-mono">
+                  <div className="text-xl font-light font-mono">
                     {formatDate.time(currentTime)}
                   </div>
                 </div>
@@ -357,7 +357,7 @@ export default function AuthPage() {
                   </div>
                   <div className="text-xl font-light font-mono text-right">
                     <span className="text-sm uppercase tracking-wide block mb-1">DATE</span>
-                    <div className="text-2xl font-light font-mono">
+                    <div className="text-xl font-light font-mono">
                       {formatDate.date(currentTime, isUKLocale)}
                     </div>
                   </div>
